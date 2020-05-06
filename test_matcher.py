@@ -1,7 +1,15 @@
 # content of test_sample.py
-def func(x):
-    return x + 1
+import cv2
+
+from matcher import TitleMatcher
 
 
-def test_answer():
-    assert func(3) == 5
+def grayscale_image(path):
+    sample_image = cv2.imread(path)
+    return cv2.cvtColor(sample_image, cv2.COLOR_BGR2GRAY)
+
+
+def test_match():
+    assert TitleMatcher.match(grayscale_image('samples/snap_120.png'))
+    assert not TitleMatcher.match(grayscale_image('samples/snap_459.png'))
+    assert not TitleMatcher.match(grayscale_image('samples/snap_5508.png'))
