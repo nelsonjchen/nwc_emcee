@@ -6,7 +6,8 @@ from numpy.core.multiarray import ndarray
 class TitleScreen:
     def __init__(self):
         raw_mask = cv2.imread('masks/title_blue.png')
-        self.mask = cv2.threshold(raw_mask, 10, 255, cv2.THRESH_BINARY)[1]
+        raw_greyscale_mask = cv2.cvtColor(raw_mask, cv2.COLOR_BGR2GRAY)
+        _, self.mask = cv2.threshold(raw_greyscale_mask, 10, 255, cv2.THRESH_BINARY)
 
     def match(self, image_hsv: ndarray) -> bool:
         lower_bound = np.array([100, 50, 50])
