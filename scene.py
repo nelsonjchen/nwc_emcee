@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 from numpy.core.multiarray import ndarray
 
+
 # TODO: Figure out API
 class TitleScreen:
     def __init__(self):
@@ -17,4 +18,3 @@ class TitleScreen:
         xor_mask = cv2.bitwise_xor(self.mask, blue_mask)
 
         return np.count_nonzero(xor_mask) < 500
-

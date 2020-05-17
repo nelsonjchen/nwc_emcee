@@ -9,6 +9,7 @@ def hsv_image(path):
 
     return cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
+
 def test_match():
     scene = TitleScreen()
 
