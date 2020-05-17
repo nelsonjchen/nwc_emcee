@@ -3,17 +3,19 @@ import time
 import numpy as np
 import cv2
 
-from matcher import TitleMatcher
+from scene import TitleScreen
 
 cap = cv2.VideoCapture('D:\\Nintendo World Championships 1990 (U) [!].avi')
 # cap = cv2.VideoCapture(0)
 
 frame_number = 0
+
+ts = TitleScreen()
 while(True):
     # Capture frame-by-frame
     ret, frame = cap.read()
 
-    if TitleMatcher.match(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)):
+    if ts.match(cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)):
         title_match = "TITLE!"
     else:
         title_match = "NOT TITLE!"
