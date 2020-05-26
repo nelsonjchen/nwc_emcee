@@ -1,16 +1,55 @@
+import asyncio
+
+import cv2
 import rx
 from rx import operators as ops
 
-words = ["Alpha", "Beta", "Gamma", "Delta", "Epsilon"]
+# cap = cv2.VideoCapture(0)
+from rx.scheduler import ImmediateScheduler
 
 
-clock_source = rx.interval(1.0)
+from scene import TitleScreen
+
+# cap = cv2.VideoCapture('D:\\Nintendo World Championships 1990 (U) [!].avi')
+cap = cv2.VideoCapture(0)
+
+loop = asyncio.get_event_loop()
+
+def capture_frame(_):
+    ret, frame = cap.read()
+    return frame
+
+def show(frame):
+    cv2.imshow('frame', frame)
+    cv2.waitKey(1)
+
+async def show_coroutine(image):
+    """
+    asyncioで実行するために、GUI表示部分をコルーチン化
+    """
+    cv2.imshow('res', image)
+    return cv2.waitKey(1) & 0xff
+
+def show(image):
+    """
+    run_coroutine_threadsafeでコルーチン
+    """
+    future = asyncio.run_coroutine_threadsafe(show_coroutine(image), loop)
+    key = future.result()
+    if key == ord('q'): # qが押されたらループを停止する
+        loop.stop()
+
+clock_source = rx.interval(1 / 15 * 1000)
 
 composed = clock_source.pipe(
-    ops.map(lambda i: words[i % len(words)]),
-    ops.map(lambda s: len(s)),
-    ops.filter(lambda i: i >= 5),
+    ops.map(lambda _: cap.read()),
+    ops.filter(lambda data: data[0]),
+    ops.map(lambda data: data[1]),
+    ops.map(lambda etc_frame: cv2.resize(etc_frame,(256,224))),
+    # ops.map(match_title_screen)
 )
-composed.subscribe(lambda value: print("Received {0}".format(value)))
+composed.subscribe(show)
 
-input("Press any key to exit")
+loop.run_forever()
+cap.release()
+loop.close()
