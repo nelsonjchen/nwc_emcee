@@ -5,8 +5,13 @@ import cv2
 
 from scene import TitleScreen
 
-cap = cv2.VideoCapture('D:\\Nintendo World Championships 1990 (U) [!].avi')
-# cap = cv2.VideoCapture(0)
+# 256x224
+# cap = cv2.VideoCapture('D:\\Nintendo World Championships 1990 (U) [!].avi')
+# webcam = False
+
+# 480 x 640
+cap = cv2.VideoCapture(0)
+webcam = True
 
 frame_number = 0
 
@@ -14,6 +19,9 @@ ts = TitleScreen()
 while(True):
     # Capture frame-by-frame
     ret, frame = cap.read()
+    if webcam:
+        frame = cv2.resize(frame, (256, 224))
+
 
     if ts.match(cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)):
         title_match = "TITLE!"
