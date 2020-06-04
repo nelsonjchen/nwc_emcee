@@ -10,8 +10,8 @@ from rx.scheduler import ImmediateScheduler
 
 from scene import TitleScreen
 
-# cap = cv2.VideoCapture('D:\\Nintendo World Championships 1990 (U) [!].avi')
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture('D:\\Nintendo World Championships 1990 (U) [!].avi')
+# cap = cv2.VideoCapture(0)
 
 loop = asyncio.get_event_loop()
 
@@ -24,22 +24,18 @@ def show(frame):
     cv2.waitKey(1)
 
 async def show_coroutine(image):
-    """
-    asyncioで実行するために、GUI表示部分をコルーチン化
-    """
     cv2.imshow('res', image)
     return cv2.waitKey(1) & 0xff
 
 def show(image):
     """
-    run_coroutine_threadsafeでコルーチン
     """
     future = asyncio.run_coroutine_threadsafe(show_coroutine(image), loop)
     key = future.result()
-    if key == ord('q'): # qが押されたらループを停止する
+    if key == ord('q'):
         loop.stop()
 
-clock_source = rx.interval(1 / 15 * 1000)
+clock_source = rx.interval(1/60)
 
 composed = clock_source.pipe(
     ops.map(lambda _: cap.read()),
