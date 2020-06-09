@@ -61,7 +61,8 @@ def mario_mask():
     and_mask_image = masked_images[0]
     for rest_sample_hsv in masked_images[1:]:
         and_mask_image = and_mask_image & rest_sample_hsv
-
+    # Zero out
+    and_mask_image[16:23,0:234] = 0
     cv2.imwrite('masks/title_mario_raw.png', and_mask_image, [cv2.IMWRITE_PNG_BILEVEL, 1])
 
 
