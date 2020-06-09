@@ -1,9 +1,9 @@
 import time
+from typing import List
 
-import numpy as np
 import cv2
 
-from scene import TitleScreen
+from scene import TitleScreen, Screen
 
 # 256x224
 cap = cv2.VideoCapture('D:\\Nintendo World Championships 1990 (U) [!].avi')
@@ -15,7 +15,7 @@ webcam = True
 
 frame_number = 0
 
-screens = [
+screens: List[Screen] = [
     TitleScreen(),
 ]
 

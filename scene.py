@@ -3,8 +3,12 @@ import numpy as np
 from numpy.core.multiarray import ndarray
 
 
-# TODO: Figure out API
-class TitleScreen:
+class Screen:
+    def match(self, image_hsv: ndarray) -> bool:
+        raise NotImplementedError
+
+
+class TitleScreen(Screen):
     def __init__(self):
         raw_mask = cv2.imread('masks/title_blue.png')
         raw_greyscale_mask = cv2.cvtColor(raw_mask, cv2.COLOR_BGR2GRAY)
@@ -20,8 +24,7 @@ class TitleScreen:
         return np.count_nonzero(xor_mask) < 500
 
 
-# TODO: Figure out API
-class MarioScore:
+class MarioGameScreen(Screen):
     def __init__(self):
         raw_mask = cv2.imread('masks/title_blue.png')
         raw_greyscale_mask = cv2.cvtColor(raw_mask, cv2.COLOR_BGR2GRAY)
