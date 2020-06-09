@@ -1,7 +1,7 @@
 # content of test_sample.py
 import cv2
 
-from scene import TitleScreen
+from scene import TitleScreen, MarioGameScreen
 
 
 def hsv_image(path):
@@ -37,3 +37,32 @@ def test_match():
     assert not scene.match(hsv_image('samples/snap_6046.png'))
     assert not scene.match(hsv_image('samples/snap_6155.png'))
     assert not scene.match(hsv_image('samples/snap_6244.png'))
+
+
+def test_match_mario():
+    scene = MarioGameScreen()
+
+    assert not scene.match(hsv_image('samples/snap_120.png'))
+    assert not scene.match(hsv_image('samples/snap_459.png'))
+    assert scene.match(hsv_image('samples/snap_762.png'))
+    assert scene.match(hsv_image('samples/snap_857.png'))
+    assert scene.match(hsv_image('samples/snap_1079.png'))
+    assert scene.match(hsv_image('samples/snap_2078.png'))
+    assert scene.match(hsv_image('samples/snap_2387.png'))
+    assert scene.match(hsv_image('samples/snap_2576.png'))
+    assert scene.match(hsv_image('samples/snap_2791.png'))
+    assert scene.match(hsv_image('samples/snap_2969.png'))
+    assert scene.match(hsv_image('samples/snap_3177.png'))
+    assert scene.match(hsv_image('samples/snap_3267.png'))
+    assert scene.match(hsv_image('samples/snap_3490.png'))
+    assert scene.match(hsv_image('samples/snap_3558.png'))
+    assert scene.match(hsv_image('samples/snap_3644.png'))
+    assert scene.match(hsv_image('samples/snap_3898.png'))
+    assert scene.match(hsv_image('samples/snap_4361.png'))
+    assert scene.match(hsv_image('samples/snap_4633.png'))
+    assert scene.match(hsv_image('samples/snap_4835.png'))
+    assert scene.match(hsv_image('samples/snap_5091.png'))
+    assert scene.match(hsv_image('samples/snap_5508.png'))
+    assert scene.match(hsv_image('samples/snap_6046.png'))
+    assert scene.match(hsv_image('samples/snap_6155.png'))
+    assert scene.match(hsv_image('samples/snap_6244.png'))
