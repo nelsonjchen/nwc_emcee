@@ -3,7 +3,7 @@ from typing import List
 
 import cv2
 
-from scene import TitleScreen, Screen
+from scene import TitleScreen, Screen, MarioGameScreen
 
 # 256x224
 cap = cv2.VideoCapture('D:\\Nintendo World Championships 1990 (U) [!].avi')
@@ -17,6 +17,7 @@ frame_number = 0
 
 screens: List[Screen] = [
     TitleScreen(),
+    MarioGameScreen(),
 ]
 
 while(True):
