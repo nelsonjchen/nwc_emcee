@@ -24,13 +24,28 @@ class TitleScreen(Screen):
         return np.count_nonzero(xor_mask) < 500
 
 
-class MarioGameScreen(Screen):
+class ScoreScreen(Screen):
+    def score(self, image_hsv: ndarray) -> int:
+        raise NotImplementedError
+
+
+class MarioGameScreen(ScoreScreen):
     def __init__(self):
         raw_mask = cv2.imread('masks/title_mario_raw.png')
         raw_greyscale_mask = cv2.cvtColor(raw_mask, cv2.COLOR_BGR2GRAY)
         # Crop mask to just the top
         _, self.mask = cv2.threshold(raw_greyscale_mask, 10, 255, cv2.THRESH_BINARY)
         self.mask = self.mask[0:16, 0:256]
+
+        palette_x = 128
+        pallete_y = 7
+        digit_images = []
+        # Digit Images
+        for digit in range(10):
+            origin_palette_x = palette_x + 7 * digit
+            digit_images.append(
+
+            )
 
     def match(self, image_hsv: ndarray) -> bool:
         # Crop to just top
@@ -42,3 +57,6 @@ class MarioGameScreen(Screen):
         xor_mask = cv2.bitwise_xor(self.mask, white_mask)
 
         return np.count_nonzero(xor_mask) < 500
+
+    def score(self, image_hsv: ndarray) -> int:
+        cropped_image_hsv = image_hsv[0:16, 0:256]
