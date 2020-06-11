@@ -37,14 +37,18 @@ class MarioGameScreen(ScoreScreen):
         _, self.mask = cv2.threshold(raw_greyscale_mask, 10, 255, cv2.THRESH_BINARY)
         self.mask = self.mask[0:16, 0:256]
 
+        palette_sheet = cv2.imread('sheets/mario.png')
+        gray_palette_sheet = cv2.cvtColor(palette_sheet, cv2.COLOR_BGR2GRAY)
+
+        _, masked = cv2.threshold(gray_palette_sheet, 10, 255, cv2.THRESH_BINARY)
+        masked = cv2.bitwise_not(masked)
         palette_x = 128
-        pallete_y = 7
-        digit_images = []
+        self.digit_images = []
         # Digit Images
         for digit in range(10):
-            origin_palette_x = palette_x + 7 * digit
-            digit_images.append(
-
+            origin_palette_x = palette_x + 8 * digit
+            self.digit_images.append(
+                masked[0:7, origin_palette_x:origin_palette_x + 8]
             )
 
     def match(self, image_hsv: ndarray) -> bool:
@@ -59,4 +63,20 @@ class MarioGameScreen(ScoreScreen):
         return np.count_nonzero(xor_mask) < 500
 
     def score(self, image_hsv: ndarray) -> int:
-        cropped_image_hsv = image_hsv[0:16, 0:256]
+        cropped_image_hsv = image_hsv[16:23, 24:72]
+        lower_white = np.array([0, 0, 250])
+        upper_bound = np.array([10, 10, 255])
+
+        white_mask = cv2.inRange(cropped_image_hsv, lower_white, upper_bound)
+        white_mask = cv2.bitwise_not(white_mask)
+        score = 0
+
+        for i in range(6):
+            cropped_digit = white_mask[0:7, 0 + i * 8:8 + i * 8]
+            for num, digit_image in enumerate(self.digit_images):
+                xor_mask = cv2.bitwise_xor(cropped_digit, digit_image)
+                count_nonzero = np.count_nonzero(xor_mask)
+                if count_nonzero < 5:
+                    score += num * 100000 // (10 ** i)
+                    continue
+        return score

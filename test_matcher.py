@@ -66,3 +66,29 @@ def test_match_mario():
     assert scene.match(hsv_image('samples/snap_6046.png'))
     assert scene.match(hsv_image('samples/snap_6155.png'))
     assert scene.match(hsv_image('samples/snap_6244.png'))
+
+
+def test_match_mario_score():
+    scene = MarioGameScreen()
+    assert scene.score(hsv_image('samples/snap_762.png')) == 0
+    assert scene.score(hsv_image('samples/snap_857.png')) == 0
+    assert scene.score(hsv_image('samples/snap_1079.png')) == 0
+    assert scene.score(hsv_image('samples/snap_2078.png')) == 300
+    assert scene.score(hsv_image('samples/snap_2387.png')) == 300
+    assert scene.score(hsv_image('samples/snap_2576.png')) == 600
+    assert scene.score(hsv_image('samples/snap_2791.png')) == 1800
+    assert scene.score(hsv_image('samples/snap_2969.png')) == 1800
+    assert scene.score(hsv_image('samples/snap_3177.png')) == 1900
+    assert scene.score(hsv_image('samples/snap_3267.png')) == 2200
+    assert scene.score(hsv_image('samples/snap_3490.png')) == 3000
+    assert scene.score(hsv_image('samples/snap_3558.png')) == 5200
+    assert scene.score(hsv_image('samples/snap_3644.png')) == 5600
+    assert scene.score(hsv_image('samples/snap_3898.png')) == 6000
+    assert scene.score(hsv_image('samples/snap_4361.png')) == 6300
+    assert scene.score(hsv_image('samples/snap_4633.png')) == 6300
+    assert scene.score(hsv_image('samples/snap_4835.png')) == 16550
+    assert scene.score(hsv_image('samples/snap_5091.png')) == 27550
+    assert scene.score(hsv_image('samples/snap_5508.png')) == 27550
+    assert scene.score(hsv_image('samples/snap_6046.png')) == 28150
+    assert scene.score(hsv_image('samples/snap_6155.png')) == 28550
+    assert scene.score(hsv_image('samples/snap_6244.png')) == 28650
