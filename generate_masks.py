@@ -66,6 +66,24 @@ def mario_mask():
     cv2.imwrite('masks/title_mario_raw.png', and_mask_image, [cv2.IMWRITE_PNG_BILEVEL, 1])
 
 
-blue_mask()
+def radracer_mask():
+    """
+    Use the purple in the bottom right corner to determine if this the radracer game
+    """
+    snap_img = cv2.imread('samples/snap_10452.png')
+    HSV_snap_img = cv2.cvtColor(snap_img, cv2.COLOR_BGR2HSV)
 
-mario_mask()
+    cropped_image_hsv = HSV_snap_img[168:224, 160:255]
+    lower_bound = np.array([100, 200, 200])
+    upper_bound = np.array([140, 255, 255])
+
+    matcher_mask = cv2.inRange(cropped_image_hsv, lower_bound, upper_bound)
+    # matcher_mask = cv2.bitwise_not(matcher_mask)
+    cv2.imwrite('masks/title_radracer_raw.png', matcher_mask, [cv2.IMWRITE_PNG_BILEVEL, 1])
+
+if __name__ == "__main__":
+    blue_mask()
+
+    mario_mask()
+
+    radracer_mask()
