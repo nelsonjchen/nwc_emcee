@@ -164,3 +164,16 @@ def test_match_radracer():
     assert not scene.match(hsv_image('samples/snap_24277.png'))
     assert not scene.match(hsv_image('samples/snap_24356.png'))
     assert not scene.match(hsv_image('samples/snap_24523.png'))
+
+
+def test_match_radracer_score ():
+    scene = RadRacerGameScreen()
+
+    # assert scene.score(hsv_image('samples/snap_10142.png')) == 0
+    assert scene.score(hsv_image('samples/snap_10452.png')) == 11
+    assert scene.score(hsv_image('samples/snap_10683.png')) == 70
+    assert scene.score(hsv_image('samples/snap_11118.png')) == 332
+    assert scene.score(hsv_image('samples/snap_12417.png')) == 900
+    assert scene.score(hsv_image('samples/snap_13042.png')) == 1406
+    assert scene.score(hsv_image('samples/snap_14042.png')) == 2349
+    assert scene.score(hsv_image('samples/snap_17935.png')) == 5649

@@ -92,7 +92,7 @@ class RadRacerGameScreen(ScoreScreen):
         palette_sheet = cv2.imread('sheets/radracer_game.png')
         gray_palette_sheet = cv2.cvtColor(palette_sheet, cv2.COLOR_BGR2GRAY)
 
-        _, masked = cv2.threshold(gray_palette_sheet, 10, 255, cv2.THRESH_BINARY)
+        _, masked = cv2.threshold(gray_palette_sheet, 250, 255, cv2.THRESH_BINARY)
         masked = cv2.bitwise_not(masked)
         # Digit Images
         palette_x = 0
@@ -115,4 +115,25 @@ class RadRacerGameScreen(ScoreScreen):
         return np.count_nonzero(xor_mask) < 1000
 
     def score(self, image_hsv: ndarray) -> int:
-        pass
+        lower_bound = np.array([50, 100, 100])
+        upper_bound = np.array([100, 255, 255])
+
+        matcher_mask = cv2.inRange(image_hsv, lower_bound, upper_bound)
+        matcher_mask = cv2.bitwise_not(matcher_mask)
+
+        score = 0
+
+        for i in range(5):
+            cropped_digit = matcher_mask[203:210, 184 + i * 8:(184 + 8) + i * 8]
+            detected_digit_and_diff = (None, 99999)
+            for num, digit_image in enumerate(self.digit_images):
+                xor_mask = cv2.bitwise_xor(cropped_digit, digit_image)
+                count_nonzero = np.count_nonzero(xor_mask)
+
+                if count_nonzero < detected_digit_and_diff[1]:
+                    detected_digit_and_diff = (num, count_nonzero)
+                    print(count_nonzero)
+            detected_digit = detected_digit_and_diff[0]
+            score += detected_digit * 10000 // (10 ** i)
+
+        return score
