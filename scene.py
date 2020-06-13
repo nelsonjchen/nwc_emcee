@@ -84,11 +84,10 @@ class MarioGameScreen(ScoreScreen):
 
 class RadRacerGameScreen(ScoreScreen):
     def __init__(self):
-        raw_mask = cv2.imread('masks/title_mario_raw.png')
+        raw_mask = cv2.imread('masks/title_radracer_raw.png')
         raw_greyscale_mask = cv2.cvtColor(raw_mask, cv2.COLOR_BGR2GRAY)
-        # Crop mask to just the top
+
         _, self.mask = cv2.threshold(raw_greyscale_mask, 10, 255, cv2.THRESH_BINARY)
-        self.mask = self.mask[0:16, 0:256]
 
         palette_sheet = cv2.imread('sheets/radracer_game.png')
         gray_palette_sheet = cv2.cvtColor(palette_sheet, cv2.COLOR_BGR2GRAY)
@@ -103,6 +102,17 @@ class RadRacerGameScreen(ScoreScreen):
             self.digit_images.append(
                 masked[25:32, origin_palette_x:origin_palette_x + 8]
             )
+
+    def match(self, image_hsv: ndarray) -> bool:
+        # Crop to just top
+        cropped_image_hsv = image_hsv[168:224, 160:230]
+        lower_bound = np.array([100, 200, 200])
+        upper_bound = np.array([140, 255, 255])
+
+        range_mask = cv2.inRange(cropped_image_hsv, lower_bound, upper_bound)
+        xor_mask = cv2.bitwise_xor(self.mask, range_mask)
+
+        return np.count_nonzero(xor_mask) < 1000
 
     def score(self, image_hsv: ndarray) -> int:
         pass

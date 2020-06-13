@@ -73,7 +73,7 @@ def radracer_mask():
     snap_img = cv2.imread('samples/snap_10452.png')
     HSV_snap_img = cv2.cvtColor(snap_img, cv2.COLOR_BGR2HSV)
 
-    cropped_image_hsv = HSV_snap_img[168:224, 160:255]
+    cropped_image_hsv = HSV_snap_img[168:224, 160:230]
     lower_bound = np.array([100, 200, 200])
     upper_bound = np.array([140, 255, 255])
 

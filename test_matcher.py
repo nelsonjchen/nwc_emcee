@@ -1,7 +1,7 @@
 # content of test_sample.py
 import cv2
 
-from scene import TitleScreen, MarioGameScreen
+from scene import TitleScreen, MarioGameScreen, RadRacerGameScreen
 
 
 def hsv_image(path):
@@ -121,3 +121,46 @@ def test_match_mario_score():
     assert scene.score(hsv_image('samples/snap_6046.png')) == 28150
     assert scene.score(hsv_image('samples/snap_6155.png')) == 28550
     assert scene.score(hsv_image('samples/snap_6244.png')) == 28650
+
+
+def test_match_radracer():
+    scene = RadRacerGameScreen()
+
+    assert not scene.match(hsv_image('samples/snap_120.png'))
+    assert not scene.match(hsv_image('samples/snap_459.png'))
+    assert not scene.match(hsv_image('samples/snap_762.png'))
+    assert not scene.match(hsv_image('samples/snap_857.png'))
+    assert not scene.match(hsv_image('samples/snap_1079.png'))
+    assert not scene.match(hsv_image('samples/snap_2078.png'))
+    assert not scene.match(hsv_image('samples/snap_2387.png'))
+    assert not scene.match(hsv_image('samples/snap_2576.png'))
+    assert not scene.match(hsv_image('samples/snap_2791.png'))
+    assert not scene.match(hsv_image('samples/snap_2969.png'))
+    assert not scene.match(hsv_image('samples/snap_3177.png'))
+    assert not scene.match(hsv_image('samples/snap_3267.png'))
+    assert not scene.match(hsv_image('samples/snap_3490.png'))
+    assert not scene.match(hsv_image('samples/snap_3558.png'))
+    assert not scene.match(hsv_image('samples/snap_3644.png'))
+    assert not scene.match(hsv_image('samples/snap_3898.png'))
+    assert not scene.match(hsv_image('samples/snap_4361.png'))
+    assert not scene.match(hsv_image('samples/snap_4633.png'))
+    assert not scene.match(hsv_image('samples/snap_4835.png'))
+    assert not scene.match(hsv_image('samples/snap_5091.png'))
+    assert not scene.match(hsv_image('samples/snap_5508.png'))
+    assert not scene.match(hsv_image('samples/snap_6046.png'))
+    assert not scene.match(hsv_image('samples/snap_6155.png'))
+    assert not scene.match(hsv_image('samples/snap_6244.png'))
+    assert not scene.match(hsv_image('samples/snap_9632.png'))
+    assert scene.match(hsv_image('samples/snap_10142.png'))
+    assert scene.match(hsv_image('samples/snap_10452.png'))
+    assert scene.match(hsv_image('samples/snap_10683.png'))
+    assert scene.match(hsv_image('samples/snap_11118.png'))
+    assert scene.match(hsv_image('samples/snap_12417.png'))
+    assert scene.match(hsv_image('samples/snap_13042.png'))
+    assert scene.match(hsv_image('samples/snap_14042.png'))
+    assert scene.match(hsv_image('samples/snap_17935.png'))
+    assert not scene.match(hsv_image('samples/snap_19519.png'))
+    assert not scene.match(hsv_image('samples/snap_20038.png'))
+    assert not scene.match(hsv_image('samples/snap_24277.png'))
+    assert not scene.match(hsv_image('samples/snap_24356.png'))
+    assert not scene.match(hsv_image('samples/snap_24523.png'))
