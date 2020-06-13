@@ -73,12 +73,15 @@ class MarioGameScreen(ScoreScreen):
 
         for i in range(6):
             cropped_digit = white_mask[0:7, 0 + i * 8:8 + i * 8]
+            detected_digit_and_diff = (None, 99999)
             for num, digit_image in enumerate(self.digit_images):
                 xor_mask = cv2.bitwise_xor(cropped_digit, digit_image)
                 count_nonzero = np.count_nonzero(xor_mask)
-                if count_nonzero < 5:
-                    score += num * 100000 // (10 ** i)
-                    continue
+
+                if count_nonzero < detected_digit_and_diff[1]:
+                    detected_digit_and_diff = (num, count_nonzero)
+            detected_digit = detected_digit_and_diff[0]
+            score += detected_digit * 100000 // (10 ** i)
         return score
 
 
