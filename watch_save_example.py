@@ -3,10 +3,10 @@ import time
 import numpy as np
 import cv2
 
-cap = cv2.VideoCapture('D:\\Nintendo World Championships 1990 (U) [!].avi')
+cap = cv2.VideoCapture('D:\\alt_Nintendo World Championships 1990 (U) [!]_1.avi')
 # cap = cv2.VideoCapture(0)
 
-frame_number = 0
+frame_number = 40000
 while(True):
     # Capture frame-by-frame
     ret, frame = cap.read()
