@@ -9,7 +9,7 @@ def hsv_image(path):
 
     return cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-
+# noinspection DuplicatedCode
 def test_match():
     scene = TitleScreen()
 
@@ -53,6 +53,7 @@ def test_match():
     assert not scene.match(hsv_image('samples/snap_24523.png'))
 
 
+# noinspection DuplicatedCode
 def test_match_mario():
     scene = MarioGameScreen()
 
