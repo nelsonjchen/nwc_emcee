@@ -3,10 +3,10 @@ from typing import List
 
 import cv2
 
-from scene import TitleScreen, Screen, MarioGameScreen, RadRacerGameScreen
+from scene import TitleScreen, Screen, MarioGameScreen, RadRacerGameScreen, ScoreScreen
 
 # 256x224
-cap = cv2.VideoCapture('D:\\Nintendo World Championships 1990 (U) [!].avi')
+cap = cv2.VideoCapture('D:\\Nintendo World Championships 1990 (U) [!]_1.avi')
 # webcam = False
 
 # 480 x 640
@@ -29,8 +29,12 @@ while(True):
 
     title_match = "Unknown"
     for screen in screens:
-        if screen.match(cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)):
-            title_match = repr(screen)
+        hsv_image = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        if screen.match(hsv_image):
+            title_match = screen.__class__.__name__
+            if isinstance(screen, ScoreScreen):
+                score = screen.score(hsv_image)
+                title_match = f"{score}-{screen.__class__.__name__}"
 
 
     # Display the resulting frame

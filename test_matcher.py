@@ -151,7 +151,8 @@ def test_match_radracer():
     assert not scene.match(hsv_image('samples/snap_6155.png'))
     assert not scene.match(hsv_image('samples/snap_6244.png'))
     assert not scene.match(hsv_image('samples/snap_9632.png'))
-    assert scene.match(hsv_image('samples/snap_10142.png'))
+    # This isn't a game mode oddly
+    assert not scene.match(hsv_image('samples/snap_10142.png'))
     assert scene.match(hsv_image('samples/snap_10452.png'))
     assert scene.match(hsv_image('samples/snap_10683.png'))
     assert scene.match(hsv_image('samples/snap_11118.png'))

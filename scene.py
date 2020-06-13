@@ -112,7 +112,7 @@ class RadRacerGameScreen(ScoreScreen):
         range_mask = cv2.inRange(cropped_image_hsv, lower_bound, upper_bound)
         xor_mask = cv2.bitwise_xor(self.mask, range_mask)
 
-        return np.count_nonzero(xor_mask) < 1000
+        return np.count_nonzero(xor_mask) < 500
 
     def score(self, image_hsv: ndarray) -> int:
         lower_bound = np.array([50, 100, 100])
@@ -132,7 +132,6 @@ class RadRacerGameScreen(ScoreScreen):
 
                 if count_nonzero < detected_digit_and_diff[1]:
                     detected_digit_and_diff = (num, count_nonzero)
-                    print(count_nonzero)
             detected_digit = detected_digit_and_diff[0]
             score += detected_digit * 10000 // (10 ** i)
 
