@@ -81,9 +81,24 @@ def radracer_mask():
     # matcher_mask = cv2.bitwise_not(matcher_mask)
     cv2.imwrite('masks/title_radracer_raw.png', matcher_mask, [cv2.IMWRITE_PNG_BILEVEL, 1])
 
+
+def tetris_mask():
+    """
+    Use the purple in the bottom right corner to determine if this the radracer game
+    """
+    match_img = cv2.imread('samples/snap_46104.png')
+    gray_match_img = cv2.cvtColor(match_img, cv2.COLOR_BGR2GRAY)
+    _, thresh_match_img = cv2.threshold(gray_match_img, 200, 255, cv2.THRESH_BINARY)
+    cropped_thresh_match_img = thresh_match_img[64:71, 19:77]
+
+    # matcher_mask = cv2.bitwise_not(matcher_mask)
+    cv2.imwrite('masks/game_tetris_statistic.png', cropped_thresh_match_img, [cv2.IMWRITE_PNG_BILEVEL, 1])
+
 if __name__ == "__main__":
     blue_mask()
 
     mario_mask()
 
     radracer_mask()
+
+    tetris_mask()
