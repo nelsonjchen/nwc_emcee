@@ -80,3 +80,29 @@ class MarioGameScreen(ScoreScreen):
                     score += num * 100000 // (10 ** i)
                     continue
         return score
+
+
+class RadRacerGameScreen(ScoreScreen):
+    def __init__(self):
+        raw_mask = cv2.imread('masks/title_mario_raw.png')
+        raw_greyscale_mask = cv2.cvtColor(raw_mask, cv2.COLOR_BGR2GRAY)
+        # Crop mask to just the top
+        _, self.mask = cv2.threshold(raw_greyscale_mask, 10, 255, cv2.THRESH_BINARY)
+        self.mask = self.mask[0:16, 0:256]
+
+        palette_sheet = cv2.imread('sheets/radracer_game.png')
+        gray_palette_sheet = cv2.cvtColor(palette_sheet, cv2.COLOR_BGR2GRAY)
+
+        _, masked = cv2.threshold(gray_palette_sheet, 10, 255, cv2.THRESH_BINARY)
+        masked = cv2.bitwise_not(masked)
+        # Digit Images
+        palette_x = 0
+        self.digit_images = []
+        for digit in range(10):
+            origin_palette_x = palette_x + 8 * digit
+            self.digit_images.append(
+                masked[25:32, origin_palette_x:origin_palette_x + 8]
+            )
+
+    def score(self, image_hsv: ndarray) -> int:
+        pass
