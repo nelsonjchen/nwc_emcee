@@ -6,7 +6,7 @@ import cv2
 from scene import TitleScreen, Screen, MarioGameScreen, RadRacerGameScreen
 
 # 256x224
-cap = cv2.VideoCapture('D:\\Nintendo World Championships 1990 (U) [!]_1.avi')
+cap = cv2.VideoCapture('D:\\Nintendo World Championships 1990 (U) [!].avi')
 # webcam = False
 
 # 480 x 640
@@ -27,14 +27,14 @@ while(True):
     if webcam:
         frame = cv2.resize(frame, (256, 224))
 
+    title_match = "Unknown"
     for screen in screens:
         if screen.match(cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)):
             title_match = repr(screen)
-        else:
-            title_match = "Unknown"
+
 
     # Display the resulting frame
-    cv2.putText(frame, title_match, (50,50), cv2.FONT_HERSHEY_SIMPLEX,
+    cv2.putText(frame, title_match, (0,50), cv2.FONT_HERSHEY_SIMPLEX,
                 1, (255,0,255), 2, cv2.LINE_AA)
     cv2.imshow('frame', frame)
     frame_number += 1
