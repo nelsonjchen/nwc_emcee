@@ -37,6 +37,20 @@ def test_match():
     assert not scene.match(hsv_image('samples/snap_6046.png'))
     assert not scene.match(hsv_image('samples/snap_6155.png'))
     assert not scene.match(hsv_image('samples/snap_6244.png'))
+    assert not scene.match(hsv_image('samples/snap_9632.png'))
+    assert not scene.match(hsv_image('samples/snap_10142.png'))
+    assert not scene.match(hsv_image('samples/snap_10452.png'))
+    assert not scene.match(hsv_image('samples/snap_10683.png'))
+    assert not scene.match(hsv_image('samples/snap_11118.png'))
+    assert not scene.match(hsv_image('samples/snap_12417.png'))
+    assert not scene.match(hsv_image('samples/snap_13042.png'))
+    assert not scene.match(hsv_image('samples/snap_14042.png'))
+    assert not scene.match(hsv_image('samples/snap_17935.png'))
+    assert not scene.match(hsv_image('samples/snap_19519.png'))
+    assert not scene.match(hsv_image('samples/snap_20038.png'))
+    assert not scene.match(hsv_image('samples/snap_24277.png'))
+    assert not scene.match(hsv_image('samples/snap_24356.png'))
+    assert not scene.match(hsv_image('samples/snap_24523.png'))
 
 
 def test_match_mario():
@@ -66,6 +80,20 @@ def test_match_mario():
     assert scene.match(hsv_image('samples/snap_6046.png'))
     assert scene.match(hsv_image('samples/snap_6155.png'))
     assert scene.match(hsv_image('samples/snap_6244.png'))
+    assert not scene.match(hsv_image('samples/snap_9632.png'))
+    assert not scene.match(hsv_image('samples/snap_10142.png'))
+    assert not scene.match(hsv_image('samples/snap_10452.png'))
+    assert not scene.match(hsv_image('samples/snap_10683.png'))
+    assert not scene.match(hsv_image('samples/snap_11118.png'))
+    assert not scene.match(hsv_image('samples/snap_12417.png'))
+    assert not scene.match(hsv_image('samples/snap_13042.png'))
+    assert not scene.match(hsv_image('samples/snap_14042.png'))
+    assert not scene.match(hsv_image('samples/snap_17935.png'))
+    assert not scene.match(hsv_image('samples/snap_19519.png'))
+    assert not scene.match(hsv_image('samples/snap_20038.png'))
+    assert not scene.match(hsv_image('samples/snap_24277.png'))
+    assert not scene.match(hsv_image('samples/snap_24356.png'))
+    assert not scene.match(hsv_image('samples/snap_24523.png'))
 
 
 def test_match_mario_score():

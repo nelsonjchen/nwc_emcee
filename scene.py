@@ -60,7 +60,7 @@ class MarioGameScreen(ScoreScreen):
         white_mask = cv2.inRange(cropped_image_hsv, lower_white, upper_bound)
         xor_mask = cv2.bitwise_xor(self.mask, white_mask)
 
-        return np.count_nonzero(xor_mask) < 500
+        return np.count_nonzero(xor_mask) < 100
 
     def score(self, image_hsv: ndarray) -> int:
         cropped_image_hsv = image_hsv[16:23, 24:72]
