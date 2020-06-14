@@ -1,5 +1,7 @@
 # content of test_sample.py
 import cv2
+import pytest
+from numpy.core.multiarray import ndarray
 
 from scene import TitleScreen, MarioGameScreen, RadRacerGameScreen, TetrisGameScreen
 
@@ -252,11 +254,21 @@ def test_match_tetris_score():
     assert scene.score(hsv_image('samples/snap_50212.png')) == 1593
 
 
+def yt_crop_resize(hsv_img: ndarray):
+    cropped_hsv_yt_img = hsv_img[13:309, 40:611]
+
+    return cv2.resize(cropped_hsv_yt_img, (256, 224))
+
+
+@pytest.mark.xfail
 def test_match_yt_video():
-    scene = TitleScreen()
+    title_screen = TitleScreen()
 
-    hsv_yt_img = hsv_image('samples/snap_40250_yt.png')
-    cropped_hsv_yt_img = hsv_yt_img[10:345, 30:620]
+    assert title_screen.match(yt_crop_resize(hsv_image('samples/snap_40250_yt.png')))
 
-    resized_cropped_hsv_yt_img = cv2.resize(cropped_hsv_yt_img, (256, 224))
-    assert scene.match(resized_cropped_hsv_yt_img)
+    assert not title_screen.match(yt_crop_resize(hsv_image('samples/snap_42626_yt.png')))
+    assert not title_screen.match(yt_crop_resize(hsv_image('samples/snap_42626_yt.png')))
+
+    mario_screen = MarioGameScreen()
+    assert title_screen.match(yt_crop_resize(hsv_image('samples/snap_42626_yt.png')))
+
