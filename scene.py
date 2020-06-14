@@ -21,7 +21,7 @@ class TitleScreen(Screen):
         blue_mask = cv2.inRange(image_hsv, lower_bound, upper_bound)
         xor_mask = cv2.bitwise_xor(self.mask, blue_mask)
 
-        return np.count_nonzero(xor_mask) < 500
+        return np.count_nonzero(xor_mask) < 1500
 
 
 class ScoreScreen(Screen):
