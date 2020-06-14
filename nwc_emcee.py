@@ -6,7 +6,10 @@ import cv2
 from scene import TitleScreen, Screen, MarioGameScreen, RadRacerGameScreen, ScoreScreen, TetrisGameScreen
 
 # 256x224
-cap = cv2.VideoCapture('D:\\alt_Nintendo World Championships 1990 (U) [!]_1.avi')
+# cap = cv2.VideoCapture('D:\\alt_Nintendo World Championships 1990 (U) [!]_1.avi')
+
+# Random youtube
+cap = cv2.VideoCapture('D:\\random_youtube_nwc.mp4')
 # webcam = False
 
 # 480 x 640
@@ -25,8 +28,7 @@ screens: List[Screen] = [
 while(True):
     # Capture frame-by-frame
     ret, frame = cap.read()
-    if webcam:
-        frame = cv2.resize(frame, (256, 224))
+    frame = cv2.resize(frame, (256, 224))
 
     title_match = "Unknown"
     for screen in screens:
