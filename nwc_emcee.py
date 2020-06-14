@@ -6,10 +6,11 @@ import cv2
 from scene import TitleScreen, Screen, MarioGameScreen, RadRacerGameScreen, ScoreScreen, TetrisGameScreen
 
 # 256x224
-# cap = cv2.VideoCapture('D:\\alt_Nintendo World Championships 1990 (U) [!]_1.avi')
+cap = cv2.VideoCapture('D:\\alt_Nintendo World Championships 1990 (U) [!]_1.avi')
 
 # Random youtube
-cap = cv2.VideoCapture('D:\\random_youtube_nwc.mp4')
+# cap = cv2.VideoCapture('D:\\random_youtube_nwc.mp4')
+random_yt = True
 # webcam = False
 
 # 480 x 640
