@@ -173,16 +173,16 @@ class TetrisGameScreen(ScoreScreen):
         return np.count_nonzero(xor_mask) < 100
 
     def score(self, image_hsv: ndarray) -> int:
-        cropped_image_hsv = image_hsv[16:23, 24:72]
         lower_white = np.array([0, 0, 250])
         upper_bound = np.array([10, 10, 255])
 
-        white_mask = cv2.inRange(cropped_image_hsv, lower_white, upper_bound)
+        white_mask = cv2.inRange(image_hsv, lower_white, upper_bound)
         white_mask = cv2.bitwise_not(white_mask)
         score = 0
 
         for i in range(6):
-            cropped_digit = white_mask[0:7, 0 + i * 8:8 + i * 8]
+            cropped_digit = white_mask[56:63, 192+i*8:(192+8)+i*8]
+
             detected_digit_and_diff = (None, 99999)
             for num, digit_image in enumerate(self.digit_images):
                 xor_mask = cv2.bitwise_xor(cropped_digit, digit_image)

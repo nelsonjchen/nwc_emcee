@@ -3,10 +3,10 @@ from typing import List
 
 import cv2
 
-from scene import TitleScreen, Screen, MarioGameScreen, RadRacerGameScreen, ScoreScreen
+from scene import TitleScreen, Screen, MarioGameScreen, RadRacerGameScreen, ScoreScreen, TetrisGameScreen
 
 # 256x224
-cap = cv2.VideoCapture('D:\\Nintendo World Championships 1990 (U) [!]_1.avi')
+cap = cv2.VideoCapture('D:\\alt_Nintendo World Championships 1990 (U) [!]_1.avi')
 # webcam = False
 
 # 480 x 640
@@ -19,6 +19,7 @@ screens: List[Screen] = [
     TitleScreen(),
     MarioGameScreen(),
     RadRacerGameScreen(),
+    TetrisGameScreen(),
 ]
 
 while(True):

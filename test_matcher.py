@@ -233,3 +233,19 @@ def test_match_tetris():
     assert scene.match(hsv_image('samples/snap_50132.png'))
     assert scene.match(hsv_image('samples/snap_50133.png'))
     assert scene.match(hsv_image('samples/snap_50212.png'))
+
+def test_match_tetris_score():
+    scene = TetrisGameScreen()
+
+    assert scene.score(hsv_image('samples/snap_20038.png')) == 11
+    assert scene.score(hsv_image('samples/snap_44806.png')) == 12
+    assert scene.score(hsv_image('samples/snap_44930.png')) == 23
+    assert scene.score(hsv_image('samples/snap_45095.png')) == 33
+    assert scene.score(hsv_image('samples/snap_45307.png')) == 94
+    assert scene.score(hsv_image('samples/snap_46104.png')) == 190
+    assert scene.score(hsv_image('samples/snap_47805.png')) == 532
+    assert scene.score(hsv_image('samples/snap_48736.png')) == 764
+    assert scene.score(hsv_image('samples/snap_50100.png')) == 1593
+    assert scene.score(hsv_image('samples/snap_50132.png')) == 1593
+    assert scene.score(hsv_image('samples/snap_50133.png')) == 1593
+    assert scene.score(hsv_image('samples/snap_50212.png')) == 1593
